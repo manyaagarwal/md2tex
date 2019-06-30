@@ -1,0 +1,38 @@
+{
+	// ===
+	// Spacing
+	// ===
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"editor.trimAutoWhitespace": true,
+	"files.trimTrailingWhitespace": true,
+	"files.eol": "\n",
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": true,
+	"prettier.useTabs": true,
+	"eslint.autoFixOnSave": true,
+	"eslint.run": "onSave",
+	"eslint.validate": [
+		{
+			"language": "javascript",
+			"autoFix": true
+		},
+		{
+			"language": "html",
+			"autoFix": true
+		}
+	],
+	"prettier.disableLanguages": ["md"],
+	"trailing-spaces.trimOnSave": true,
+
+	// ===
+	// HTML
+	// ===
+
+	"html.format.enable": false,
+
+	// ===
+	// EDITOR SETTINGS
+	// ===
+	"editor.suggest.localityBonus": true
+}

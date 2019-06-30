@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`md2tex code blocks 1`] = `
+"some text before
+\\\\begin{listing}[H]
+	\\\\begin{minted}{js}
+console.log(\\"Hi\\");
+	\\\\end{minted}
+	\\\\caption{Code SnippeCode Snipped undefined}
+	\\\\label{lst:code-snipped-undefined}
+\\\\end{listing}
+and some behind
+"
+`;
+
+exports[`md2tex footnotes 1`] = `
+"some footnote
+\\\\footnote{footnote text}
+
+"
+`;
+
+exports[`md2tex headlines 1`] = `
+"%************************************************
+\\\\chapter{H1}
+\\\\label{ch:0-h1}
+%************************************************
+\\\\hypertarget{1-h2}{
+\\\\section{H2}\\\\label{1-h2}}
+\\\\hypertarget{2-h3}{
+\\\\subsection{H3}\\\\label{2-h3}}
+\\\\hypertarget{3-h4}{
+\\\\subsubsection{H4}\\\\label{3-h4}}
+\\\\hypertarget{4-h5}{
+\\\\paragraph{H5}\\\\label{4-h5}}
+\\\\hypertarget{5-h6}{
+\\\\subparagraph{H6}\\\\label{5-h6}}
+"
+`;
+
+exports[`md2tex headlines with styles and code 1`] = `
+"%************************************************
+\\\\chapter{\\\\textit{italic} \\\\textit{underscore}}
+\\\\label{ch:0--italic--underscore}
+%************************************************
+\\\\hypertarget{1--code--headline}{
+\\\\section{\\\\colorbox{gray-light!}{\\\\texttt{Code}} headline}\\\\label{1--code--headline}}
+"
+`;
+
+exports[`md2tex images 1`] = `
+"some 
+\\\\begin{figure}[H]
+	\\\\centering
+	\\\\includegraphics[width=\\\\textwidth]{url}
+	\\\\caption[image]{image}
+	\\\\label{fig:image}
+\\\\end{figure}
+
+"
+`;
+
+exports[`md2tex inline styles 1`] = `
+"\\\\textit{italic} normal \\\\textit{italic}
+\\\\textbf{bold} normal \\\\textbf{bold}
+"
+`;
+
+exports[`md2tex inline styles with links and images 1`] = `
+"\\\\textit{italic} link
+\\\\footnote{without\\\\_any\\\\_italic\\\\_styles}
+ \\\\textit{italic}
+\\\\textbf{bold} 
+\\\\begin{figure}[H]
+	\\\\centering
+	\\\\includegraphics[width=\\\\textwidth]{shouldn**t**be__bold__eighter}
+	\\\\caption[images]{images}
+	\\\\label{fig:images}
+\\\\end{figure}
+.
+"
+`;
+
+exports[`md2tex log error for unsupported heading levels 1`] = `
+"######## H8 is unsupported, errors are expected
+"
+`;
+
+exports[`md2tex mixed list 1`] = `
+"\\\\begin{enumerate}
+	\\\\item first entry
+	\\\\begin{itemize}
+		\\\\item first indentation
+		\\\\begin{itemize}
+			\\\\item even more indentation
+	\\\\end{itemize}
+		\\\\item second subentry
+	\\\\end{itemize}
+	\\\\item second entry
+	\\\\begin{enumerate}
+		\\\\item indented
+		\\\\begin{itemize}
+			\\\\item unorderd sublist
+		\\\\end{enumerate}
+	\\\\end{enumerate}
+\\\\end{itemize}
+"
+`;
+
+exports[`md2tex ordered list 1`] = `
+"\\\\begin{enumerate}
+	\\\\item first entry
+	\\\\begin{enumerate}
+		\\\\item first indentation
+		\\\\begin{enumerate}
+			\\\\item even more indentation
+		\\\\end{enumerate}
+	\\\\end{enumerate}
+	\\\\item second entry
+	\\\\begin{enumerate}
+		\\\\item indented
+		\\\\begin{enumerate}
+			\\\\item and done
+		\\\\end{enumerate}
+	\\\\end{enumerate}
+\\\\end{enumerate}
+"
+`;
+
+exports[`md2tex raw latex blocks 1`] = `
+"some text before
+
+\\\\\\\\textbackslash backslash
+
+and some behind
+"
+`;
+
+exports[`md2tex unordered list 1`] = `
+"\\\\begin{itemize}
+	\\\\item first entry
+	\\\\begin{itemize}
+		\\\\item first indentation
+		\\\\begin{itemize}
+			\\\\item even more indentation
+		\\\\end{itemize}
+	\\\\end{itemize}
+	\\\\item second entry
+	\\\\begin{itemize}
+		\\\\item indented
+		\\\\begin{itemize}
+			\\\\item and done
+		\\\\end{itemize}
+	\\\\end{itemize}
+\\\\end{itemize}
+"
+`;

@@ -1,0 +1,41 @@
+{
+	"name": "md2tex",
+	"version": "1.0.0",
+	"description": "bachelor thesis basic Markdown to Latex converter",
+	"main": "dist/md2tex.js",
+	"scripts": {
+		"convert": "nodemon --exec babel-node ./md2tex.file.js",
+		"test": "jest",
+		"test:update": "jest -u",
+		"test:watch": "yarn test --watchAll",
+		"build": "babel md2tex.js --out-file dist/md2tex.js"
+	},
+	"keywords": [
+		"Markdown",
+		"Latex",
+		"Converter",
+		"Thesis"
+	],
+	"contributors": [
+		{
+			"name": "Adrian Jost",
+			"email": "me@adrianjost.dev",
+			"url": "https://adrianjost.dev"
+		}
+	],
+	"license": "MIT",
+	"jest": {
+		"coverageDirectory": "./coverage/",
+		"collectCoverage": true
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.4.4",
+		"@babel/core": "^7.4.5",
+		"@babel/node": "^7.4.5",
+		"@babel/polyfill": "^7.4.4",
+		"@babel/preset-env": "^7.4.5",
+		"dedent-tabs": "^0.8.0",
+		"jest": "^24.8.0",
+		"nodemon": "^1.19.1"
+	}
+}

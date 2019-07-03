@@ -1,4 +1,7 @@
+#!/usr/bin/env node
+
 "use-strict";
+
 // Copyright (C) 2019 Adrian Jost
 // This code is licensed under MIT license (see https://tldrlegal.com/license/mit-license for details)
 
@@ -123,7 +126,7 @@ const mapImages = line => {
 };
 
 const mapFootnotes = line => {
-	const footnote = ` $1\n\\footnote{$2}\n`;
+	const footnote = ` $1\\footnote{$2}`;
 	return line.replace(/[^\!]\[([^\]]*)\]\(([^\)]+)\)/g, footnote);
 };
 
@@ -144,9 +147,10 @@ export const convert = (content, { loglevel = "warn" } = {}) => {
 		[/^(\s)*[1-9]+\.(\s)/, "enumerate"],
 		[/^(\s)*\-(\s)/, "itemize"]
 	];
-	const lines = content
+	let lines = content
 		.split("\n")
 		.map(a => a.trimRight().replace(/(\r\n|\n|\r)$/gm, ""))
+	lines = lines
 		.map((a, i) => {
 			// latex block
 			if (a.toLowerCase().startsWith("```latex")) {
@@ -210,8 +214,10 @@ export const convert = (content, { loglevel = "warn" } = {}) => {
 						(type, index) =>
 							`${"\t".repeat(openEnums.length - index - 1)}\\end{${type}}`
 					)
-					.join("\n")}\n${a}`;
+					.join("\n")}\n${a} ${"\\\\"}`;
 				openEnums = [];
+			}else if(lines[Math.min(i + 1, lines.length - 1)].replace(/\s/g, "").length && a.replace(/\s/g, "").length ){
+				a = `${a} ${"\\\\"}`;
 			}
 
 			// Return Result

@@ -1,6 +1,10 @@
+#!/usr/bin/env node
+
 import fs from "fs";
-import logger from "./logger";
+import logLib from "./logger";
 import convert from "./md2tex";
+
+const logger = logLib();
 
 const readFile = filename => {
 	return new Promise((resolve, reject) => {
@@ -27,4 +31,9 @@ export const convertFile = async (filenameIn, filenameOut) => {
 	writeFile(filenameOut || "./out.tex", output);
 };
 
-convertFile()
+const inFile = process.argv[2] || "./in.md"
+const outFile = process.argv[3] || "./out.md"
+
+console.log(`Convert from "${inFile}" to "${outFile}"\n...`);
+convertFile(inFile, outFile);
+console.log(`Conversion finished :D`);

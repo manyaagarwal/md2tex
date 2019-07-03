@@ -1,22 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`md2tex apply linebreaks 1`] = `
+"I wan't to be in the same textblock \\\\\\\\
+but I also wan't to be on a seperate line
+
+Please, let me go into a new textblock :help:
+"
+`;
+
 exports[`md2tex code blocks 1`] = `
-"some text before
+"some text before \\\\\\\\
 \\\\begin{listing}[H]
 	\\\\begin{minted}{js}
 console.log(\\"Hi\\");
 	\\\\end{minted}
 	\\\\caption{Code SnippeCode Snipped undefined}
 	\\\\label{lst:code-snipped-undefined}
-\\\\end{listing}
+\\\\end{listing} \\\\\\\\
 and some behind
 "
 `;
 
 exports[`md2tex footnotes 1`] = `
-"some footnote
-\\\\footnote{footnote text}
-
+"some footnote\\\\footnote{footnote text}
 "
 `;
 
@@ -35,6 +41,32 @@ exports[`md2tex headlines 1`] = `
 \\\\paragraph{H5}\\\\label{4-h5}}
 \\\\hypertarget{5-h6}{
 \\\\subparagraph{H6}\\\\label{5-h6}}
+"
+`;
+
+exports[`md2tex headlines with escaped characters 1`] = `
+"%************************************************
+\\\\chapter{escapes}
+\\\\label{ch:0-escapes}
+%************************************************
+\\\\hypertarget{1-blocks}{
+\\\\section{blocks}\\\\label{1-blocks}}
+\\\\hypertarget{2--tilde-}{
+\\\\subsection{~ tilde ~}\\\\label{2--tilde-}}
+\\\\hypertarget{3-i-don-t-know}{
+\\\\subsection{^I don't know}\\\\label{3-i-don-t-know}}
+\\\\hypertarget{4--backslash---other-}{
+\\\\subsection{\\\\\\\\ backslash \\\\## & other &}\\\\label{4--backslash---other-}}
+\\\\hypertarget{5--procent-}{
+\\\\subsection{% procent %}\\\\label{5--procent-}}
+\\\\hypertarget{6--money--dollar}{
+\\\\subsection{$ money $ dollar}\\\\label{6--money--dollar}}
+\\\\hypertarget{7--hashtag-}{
+\\\\subsection{# hashtag #}\\\\label{7--hashtag-}}
+\\\\hypertarget{8--underscore-}{
+\\\\subsection{\\\\textit{ underscore }}\\\\label{8--underscore-}}
+\\\\hypertarget{9--brackets-}{
+\\\\subparagraph{({brackets})}\\\\label{9--brackets-}}
 "
 `;
 
@@ -61,15 +93,19 @@ exports[`md2tex images 1`] = `
 `;
 
 exports[`md2tex inline styles 1`] = `
-"\\\\textit{italic} normal \\\\textit{italic}
+"\\\\textit{italic} normal \\\\textit{italic} \\\\\\\\
 \\\\textbf{bold} normal \\\\textbf{bold}
 "
 `;
 
+exports[`md2tex inline styles with escaped charachters 1`] = `
+"\\\\textit{italic} & \\\\textit{italic \\\\ backslash} \\\\\\\\
+\\\\textbf{bold} {} \\\\textbf{bolder $ money}.
+"
+`;
+
 exports[`md2tex inline styles with links and images 1`] = `
-"\\\\textit{italic} link
-\\\\footnote{without\\\\_any\\\\_italic\\\\_styles}
- \\\\textit{italic}
+"\\\\textit{italic} link\\\\footnote{without\\\\_any\\\\_italic\\\\_styles} \\\\textit{italic} \\\\\\\\
 \\\\textbf{bold} 
 \\\\begin{figure}[H]
 	\\\\centering
@@ -104,7 +140,7 @@ exports[`md2tex mixed list 1`] = `
 		\\\\end{enumerate}
 	\\\\end{enumerate}
 \\\\end{itemize}
-"
+ \\\\\\\\"
 `;
 
 exports[`md2tex ordered list 1`] = `
@@ -124,11 +160,11 @@ exports[`md2tex ordered list 1`] = `
 		\\\\end{enumerate}
 	\\\\end{enumerate}
 \\\\end{enumerate}
-"
+ \\\\\\\\"
 `;
 
 exports[`md2tex raw latex blocks 1`] = `
-"some text before
+"some text before \\\\\\\\
 
 \\\\\\\\textbackslash backslash
 
@@ -153,5 +189,5 @@ exports[`md2tex unordered list 1`] = `
 		\\\\end{itemize}
 	\\\\end{itemize}
 \\\\end{itemize}
-"
+ \\\\\\\\"
 `;

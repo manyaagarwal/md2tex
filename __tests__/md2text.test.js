@@ -18,7 +18,6 @@ describe("md2tex", () => {
 			`)
 		).toMatchSnapshot();
 	});
-	/*
 	it("headlines with escaped characters", () => {
 		expect(
 			convert(dd`
@@ -36,7 +35,6 @@ describe("md2tex", () => {
 			`)
 		).toMatchSnapshot();
 	});
-	*/
 	it("headlines with styles and code", () => {
 		expect(
 			convert(dd`
@@ -50,6 +48,14 @@ describe("md2tex", () => {
 			convert(dd`
 				*italic* normal _italic_
 				**bold** normal __bold__
+			`)
+		).toMatchSnapshot();
+	});
+	it("inline styles with escaped charachters", () => {
+		expect(
+			convert(dd`
+				*italic* & _italic \\ backslash_
+				**bold** {} __bolder $ money__.
 			`)
 		).toMatchSnapshot();
 	});
@@ -130,6 +136,16 @@ describe("md2tex", () => {
 		expect(
 			convert(dd`
 			######## H8 is unsupported, errors are expected
+		`)
+		).toMatchSnapshot();
+	});
+	it("apply linebreaks", () => {
+		expect(
+			convert(dd`
+			I wan't to be in the same textblock
+			but I also wan't to be on a seperate line
+
+			Please, let me go into a new textblock :help:
 		`)
 		).toMatchSnapshot();
 	});

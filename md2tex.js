@@ -11,10 +11,10 @@ import logLib from "./logger";
 let logger = logLib();
 
 const escapeSpecialChars = text => {
-	const prefix = char => `\\${char}`;
+	text = text.replace(/([\\])/g, "\\textbackslash ");
 	text = text.replace(/([\~])/g, "\\textasciitilde ");
 	text = text.replace(/([\^])/g, "\\textasciicircum ");
-	text = text.replace(/([\\])/g, "\\textbackslash ");
+	const prefix = char => `\\${char}`;
 	text = text.replace(/([\&\%\$\#\_\{\}])/g, prefix);
 	return text;
 };
@@ -101,13 +101,15 @@ const mapTextStyle = line => {
 			/(?<=(?:^|[^\\])(?:\\\\)*)(?<!\!\[.*\].*)(\*\*|\_\_)((?:[^\\]|\\[^\\]|\\\\)*?)\1/g,
 			replaceWithUnescapedMatch("\\textbf{$2}")
 		);
-	// 2. apply italic when not escaped. then unescape the text
+	// 3. apply italic when not escaped. then unescape the text
 	line = line
 		// https://regex101.com/r/jocMku/2
 		.replace(
 			/(?<=(?:^|[^\\])(?:\\\\)*)(?<!\!\[.*\].*)(\*|\_)((?:[^\\]|\\[^\\]|\\\\)*?)\1/g,
 			replaceWithUnescapedMatch("\\textit{$2}")
 		);
+	// 4. unescape all text inside links
+			line = line.replace(/(?<=[^\!]\[.*\]\(.*)\\([\_\*])(?=.*\))/g, "$1")
 
 	return line;
 };
@@ -126,7 +128,10 @@ const mapImages = line => {
 };
 
 const mapFootnotes = line => {
-	const footnote = ` $1\\footnote{$2}`;
+	const footnote = function(){
+		const args = Array.from(arguments);
+		return ` ${escapeSpecialChars(args[1])}\\footnote{${escapeSpecialChars(args[2])}}`
+	}
 	return line.replace(/[^\!]\[([^\]]*)\]\(([^\)]+)\)/g, footnote);
 };
 

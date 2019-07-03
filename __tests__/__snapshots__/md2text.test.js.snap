@@ -21,6 +21,11 @@ and some behind
 "
 `;
 
+exports[`md2tex escape special chars in footnotes 1`] = `
+"I have the special char \\\\# in my footnote\\\\footnote{https://vuejs.org/v2/guide/components-slots.html\\\\#Scoped-Slots}
+"
+`;
+
 exports[`md2tex footnotes 1`] = `
 "some footnote\\\\footnote{footnote text}
 "

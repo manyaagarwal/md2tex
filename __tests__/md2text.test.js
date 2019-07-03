@@ -149,4 +149,11 @@ describe("md2tex", () => {
 		`)
 		).toMatchSnapshot();
 	});
+	it("escape special chars in footnotes", () => {
+		expect(
+			convert(dd`
+			I have [the special char # in my footnote](https://vuejs.org/v2/guide/components-slots.html#Scoped-Slots)
+		`)
+		).toMatchSnapshot();
+	});
 });

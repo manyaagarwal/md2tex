@@ -145,7 +145,18 @@ exports[`md2tex mixed list 1`] = `
 		\\\\end{enumerate}
 	\\\\end{enumerate}
 \\\\end{itemize}
- \\\\\\\\"
+ "
+`;
+
+exports[`md2tex no linebreak after listings 1`] = `
+"\\\\begin{itemize}
+	\\\\item I am
+
+	\\\\item a List
+\\\\end{itemize}
+ 
+With some text afterwards
+"
 `;
 
 exports[`md2tex ordered list 1`] = `
@@ -165,7 +176,7 @@ exports[`md2tex ordered list 1`] = `
 		\\\\end{enumerate}
 	\\\\end{enumerate}
 \\\\end{enumerate}
- \\\\\\\\"
+ "
 `;
 
 exports[`md2tex raw latex blocks 1`] = `
@@ -194,5 +205,5 @@ exports[`md2tex unordered list 1`] = `
 		\\\\end{itemize}
 	\\\\end{itemize}
 \\\\end{itemize}
- \\\\\\\\"
+ "
 `;

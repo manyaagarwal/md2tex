@@ -156,4 +156,14 @@ describe("md2tex", () => {
 		`)
 		).toMatchSnapshot();
 	});
+	it("no linebreak after listings", () => {
+		expect(
+			convert(dd`
+			- I am
+			- a List
+
+			With some text afterwards
+		`)
+		).toMatchSnapshot();
+	});
 });

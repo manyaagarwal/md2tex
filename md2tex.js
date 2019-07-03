@@ -219,7 +219,7 @@ export const convert = (content, { loglevel = "warn" } = {}) => {
 						(type, index) =>
 							`${"\t".repeat(openEnums.length - index - 1)}\\end{${type}}`
 					)
-					.join("\n")}\n${a} ${"\\\\"}`;
+					.join("\n")}\n${a} ${a.replace(/\s/g, "").length ? "\\\\" : ""}`;
 				openEnums = [];
 			}else if(lines[Math.min(i + 1, lines.length - 1)].replace(/\s/g, "").length && a.replace(/\s/g, "").length ){
 				a = `${a} ${"\\\\"}`;

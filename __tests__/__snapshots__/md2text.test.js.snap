@@ -159,8 +159,24 @@ exports[`md2tex no linebreak after listings 1`] = `
 
 	\\\\item a List
 \\\\end{itemize}
+With some text directly afterwards 
+
+\\\\begin{itemize}
+	\\\\item I am
+
+	\\\\item a List
+\\\\end{itemize}
  
-With some text afterwards
+With an empty line and text following
+
+\\\\begin{itemize}
+	\\\\item I am
+
+	\\\\item a List
+\\\\end{itemize}
+ 
+With an empty line and text following \\\\\\\\
+with multiple lines should have a linebreak
 "
 `;
 

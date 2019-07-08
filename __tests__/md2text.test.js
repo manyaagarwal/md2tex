@@ -161,8 +161,18 @@ describe("md2tex", () => {
 			convert(dd`
 			- I am
 			- a List
+			With some text directly afterwards
 
-			With some text afterwards
+			- I am
+			- a List
+
+			With an empty line and text following
+
+			- I am
+			- a List
+
+			With an empty line and text following
+			with multiple lines should have a linebreak
 		`)
 		).toMatchSnapshot();
 	});

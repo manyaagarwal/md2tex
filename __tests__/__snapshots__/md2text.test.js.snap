@@ -122,6 +122,11 @@ exports[`md2tex inline styles with links and images 1`] = `
 "
 `;
 
+exports[`md2tex links directly after links 1`] = `
+"link1\\\\footnote{target1}link2\\\\footnote{target2}\\\\footnote{target3}
+"
+`;
+
 exports[`md2tex log error for unsupported heading levels 1`] = `
 "######## H8 is unsupported, errors are expected
 "

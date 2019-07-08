@@ -166,4 +166,11 @@ describe("md2tex", () => {
 		`)
 		).toMatchSnapshot();
 	});
+	it("links directly after links", () => {
+		expect(
+			convert(dd`
+			[link1](target1)[link2](target2)[](target3)
+		`)
+		).toMatchSnapshot();
+	});
 });

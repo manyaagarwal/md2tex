@@ -130,9 +130,9 @@ const mapImages = line => {
 const mapFootnotes = line => {
 	const footnote = function(){
 		const args = Array.from(arguments);
-		return ` ${escapeSpecialChars(args[1])}\\footnote{${escapeSpecialChars(args[2])}}`
+		return `${escapeSpecialChars(args[1])}\\footnote{${escapeSpecialChars(args[2])}}`
 	}
-	return line.replace(/[^\!]\[([^\]]*)\]\(([^\)]+)\)/g, footnote);
+	return line.replace(/(?<!\!)\[([^\]]*)\]\(([^\)]+)\)/g, footnote);
 };
 
 const mapInlineTextStyles = (line, index) => {

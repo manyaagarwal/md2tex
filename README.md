@@ -17,15 +17,10 @@ You can use a codeblock with the language `latex` to write latex code directly i
 
 ```md
 # H1
-
 ## H2
-
 ### H3
-
 #### H4
-
 ##### H5
-
 ###### H6
 ```
 
@@ -128,7 +123,8 @@ console.log("Hi");
 **Input:**
 
 ```md
-- list item 1 - indentation 1
+- list item 1
+	- indentation 1
 - list item 2
 
 1. first
@@ -153,6 +149,13 @@ console.log("Hi");
 \end{enumerate}
 ```
 
-## Missing Features
+## Known Limitations
 
 - Currently, this code can't convert tables
+- It is also not possible to use inline styles in headlines like `# _italic_ headline`
+
+## Contribute
+
+You wan't to contribute? Feel free to do so!
+
+If you have found a bug, just add a snapshot test to the tests located at `__tests__/md2tex.test.js` and open a pull request.

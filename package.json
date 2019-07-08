@@ -1,11 +1,14 @@
 {
-	"name": "md2tex",
+	"name": "@adrianjost/md2tex",
 	"version": "1.0.0",
 	"description": "bachelor thesis basic Markdown to Latex converter",
 	"main": "dist/md2tex.js",
 	"bin": {
 		"md2tex": "dist/md2tex.file.js"
 	},
+	"publishConfig": {
+    "access": "public"
+  },
 	"scripts": {
 		"convert": "nodemon --exec babel-node ./md2tex.file.js",
 		"test": "jest",

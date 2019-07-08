@@ -14,7 +14,7 @@ exports[`md2tex code blocks 1`] = `
 	\\\\begin{minted}{js}
 console.log(\\"Hi\\");
 	\\\\end{minted}
-	\\\\caption{Code SnippeCode Snipped undefined}
+	\\\\caption{Code Snipped undefined}
 	\\\\label{lst:code-snipped-undefined}
 \\\\end{listing} \\\\\\\\
 and some behind

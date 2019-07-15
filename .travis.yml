@@ -14,9 +14,11 @@ script:
   - yarn test
   - codecov
   - yarn build
-  - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+deploy:
+  provider: npm
+  email: $NPM_EMAIL
+  api_key: $NPM_TOKEN
+  skip_cleanup: true
 notifications:
   email: false
-cache:
-  directories:
-    - node_modules
+cache: yarn

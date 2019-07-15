@@ -1,4 +1,7 @@
 node_modules
-/coverage
-out.tex
+coverage
+dist
+.cache
+
 in.md
+out.tex

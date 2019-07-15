@@ -8,6 +8,8 @@ exports.convertFile = void 0;
 
 var _fs = _interopRequireDefault(require("fs"));
 
+var _path = _interopRequireDefault(require("path"));
+
 var _logger = _interopRequireDefault(require("./logger"));
 
 var _md2tex = _interopRequireDefault(require("./md2tex"));
@@ -27,11 +29,29 @@ const readFile = filename => {
 
 const writeFile = (filepath, content) => {
   return new Promise((resolve, reject) => {
+    if (!_fs.default.existsSync(_path.default.dirname(filepath))) {
+      _fs.default.mkdirSync(_path.default.dirname(filepath), {
+        recursive: true
+      });
+    }
+
     _fs.default.writeFile(filepath, content, function (err) {
       err ? logger.error(err) : logger.log("The file was saved.");
       return err ? reject(err) : resolve();
     });
   });
+};
+
+const readFilelist = (dir, filelist = [], baseDir) => {
+  if (!baseDir) {
+    baseDir = dir;
+  }
+
+  _fs.default.readdirSync(dir).forEach(file => {
+    filelist = _fs.default.statSync(_path.default.join(dir, file)).isDirectory() ? readFilelist(_path.default.join(dir, file), filelist, baseDir) : filelist.concat(_path.default.relative(baseDir, _path.default.join(dir, file)));
+  });
+
+  return filelist;
 };
 
 const convertFile = async (filenameIn, filenameOut) => {
@@ -42,8 +62,29 @@ const convertFile = async (filenameIn, filenameOut) => {
 };
 
 exports.convertFile = convertFile;
-const inFile = process.argv[2] || "./in.md";
-const outFile = process.argv[3] || "./out.md";
-console.log(`Convert file: ${inFile} to ${outFile}...`);
-convertFile(inFile, outFile);
+const inPath = process.argv[2] || "./in.md";
+const outPath = process.argv[3] || "./out.md";
+console.log(`Convert from "${inPath}" to "${outPath}"\n...`);
+
+if (_fs.default.statSync(inPath).isDirectory()) {
+  if (_fs.default.existsSync(outPath) && !_fs.default.statSync(outPath).isDirectory()) {
+    logger.error("Output Path is not a directory");
+  }
+
+  readFilelist(inPath).forEach(relPath => {
+    if (!/\.md$/i.test(relPath)) {
+      // skip non md files
+      return;
+    }
+
+    convertFile(_path.default.join(inPath, relPath), _path.default.join(outPath, relPath).replace(".md", ".tex"));
+  });
+} else {
+  if (_fs.default.existsSync(outPath) && _fs.default.statSync(outPath).isDirectory()) {
+    logger.error("Output Path is not a file");
+  }
+
+  convertFile(inPath, outPath);
+}
+
 console.log(`Conversion finished :D`);

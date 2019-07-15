@@ -17,11 +17,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 let logger = (0, _logger.default)();
 
 const escapeSpecialChars = text => {
-  const prefix = char => `\\${char}`;
-
+  text = text.replace(/([\\])/g, "\\textbackslash ");
   text = text.replace(/([\~])/g, "\\textasciitilde ");
   text = text.replace(/([\^])/g, "\\textasciicircum ");
-  text = text.replace(/([\\])/g, "\\textbackslash ");
+
+  const prefix = char => `\\${char}`;
+
   text = text.replace(/([\&\%\$\#\_\{\}])/g, prefix);
   return text;
 };
@@ -66,7 +67,7 @@ const mapCodeblocks = (line, index) => {
 
   if (line.trim() === "```") {
     return `	\\end{minted}
-	\\caption{Code SnippeCode Snipped ${index}}
+	\\caption{Code Snipped ${index}}
 	\\label{lst:code-snipped-${index}}
 \\end{listing}`;
   }
@@ -106,10 +107,12 @@ const mapTextStyle = line => {
   line = line.replace(/(?<=[^\!]\[.*\]\(.*)([\\\_\*])(?=.*\))/g, "\\$1"); // 2. apply bold when not escaped. then unescape the text
 
   line = line // check regex for single character below for details
-  .replace(/(?<=(?:^|[^\\])(?:\\\\)*)(?<!\!\[.*\].*)(\*\*|\_\_)((?:[^\\]|\\[^\\]|\\\\)*?)\1/g, replaceWithUnescapedMatch("\\textbf{$2}")); // 2. apply italic when not escaped. then unescape the text
+  .replace(/(?<=(?:^|[^\\])(?:\\\\)*)(?<!\!\[.*\].*)(\*\*|\_\_)((?:[^\\]|\\[^\\]|\\\\)*?)\1/g, replaceWithUnescapedMatch("\\textbf{$2}")); // 3. apply italic when not escaped. then unescape the text
 
   line = line // https://regex101.com/r/jocMku/2
-  .replace(/(?<=(?:^|[^\\])(?:\\\\)*)(?<!\!\[.*\].*)(\*|\_)((?:[^\\]|\\[^\\]|\\\\)*?)\1/g, replaceWithUnescapedMatch("\\textit{$2}"));
+  .replace(/(?<=(?:^|[^\\])(?:\\\\)*)(?<!\!\[.*\].*)(\*|\_)((?:[^\\]|\\[^\\]|\\\\)*?)\1/g, replaceWithUnescapedMatch("\\textit{$2}")); // 4. unescape all text inside links
+
+  line = line.replace(/(?<=[^\!]\[.*\]\(.*)\\([\_\*])(?=.*\))/g, "$1");
   return line;
 };
 
@@ -128,8 +131,12 @@ const mapImages = line => {
 };
 
 const mapFootnotes = line => {
-  const footnote = ` $1\\footnote{$2}`;
-  return line.replace(/[^\!]\[([^\]]*)\]\(([^\)]+)\)/g, footnote);
+  const footnote = function () {
+    const args = Array.from(arguments);
+    return `${escapeSpecialChars(args[1])}\\footnote{${escapeSpecialChars(args[2])}}`;
+  };
+
+  return line.replace(/(?<!\!)\[([^\]]*)\]\(([^\)]+)\)/g, footnote);
 };
 
 const mapInlineTextStyles = (line, index) => {
@@ -204,7 +211,7 @@ const convert = (content, {
         a = `${closingTags.join("\n")}\n${a}`;
       }
     } else if (openEnums.length) {
-      a = `${openEnums.map((type, index) => `${"\t".repeat(openEnums.length - index - 1)}\\end{${type}}`).join("\n")}\n${a} ${"\\\\"}`;
+      a = `${openEnums.map((type, index) => `${"\t".repeat(openEnums.length - index - 1)}\\end{${type}}`).join("\n")}\n${a} ${lines[Math.min(i + 1, lines.length - 1)].replace(/\s/g, "").length && a.replace(/\s/g, "").length ? "\\\\" : ""}`;
       openEnums = [];
     } else if (lines[Math.min(i + 1, lines.length - 1)].replace(/\s/g, "").length && a.replace(/\s/g, "").length) {
       a = `${a} ${"\\\\"}`;

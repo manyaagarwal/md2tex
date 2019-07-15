@@ -7,6 +7,53 @@
 
 All features were developed for compatibility with [the modernthesis template](https://github.com/openHPI/modernthesis).
 
+## How to use it
+
+### As a standalone converter
+
+#### Install
+
+```bash
+# yarn
+npm i -g @adrianjost/md2tex
+
+# or npm
+yarn global add @adrianjost/md2tex
+```
+
+#### Usage
+
+```bash
+md2tex "pathToSrcMdFile" "pathToTargetTexFile"
+```
+
+- The `pathToSrcMdFile` default to `./in.md`.
+- The `pathToTargetTexFile` default to `./out.tex`.
+
+If you provide a directory path instead of a file for both paths, all `.md` files will get converted to the output directory. The Filestructure will remain the same.
+
+### As a regular dependency
+
+#### Install
+
+```bash
+# yarn
+npm i -D @adrianjost/md2tex
+
+# or npm
+yarn add -D @adrianjost/md2tex
+```
+
+#### Usage
+
+```js
+import md2tex from "@adrianjost/md2tex";
+
+const md = `# Hello World`;
+const tex = md2tex(md);
+console.log(tex);
+```
+
 ## Features
 
 You can use a codeblock with the language `latex` to write latex code directly in your markdown files. This Code is getting directly copied into the output without any further conversion.

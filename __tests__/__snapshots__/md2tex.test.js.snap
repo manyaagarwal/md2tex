@@ -21,6 +21,16 @@ and some behind
 "
 `;
 
+exports[`md2tex escape chars in lists 1`] = `
+"\\\\begin{itemize}
+	\\\\item first \\\\& second
+	\\\\begin{itemize}
+		\\\\item backslash: \\\\textbackslash 
+	\\\\end{itemize}
+\\\\end{itemize}
+ "
+`;
+
 exports[`md2tex escape special chars in footnotes 1`] = `
 "I have the special char \\\\# in my footnote\\\\footnote{https://vuejs.org/v2/guide/components-slots.html\\\\#Scoped-Slots}
 "

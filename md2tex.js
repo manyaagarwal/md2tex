@@ -188,7 +188,7 @@ export const convert = (content, { loglevel = "warn" } = {}) => {
 				const [regex, type] = activeEnum;
 
 				const leadingSpaces = a.search(/\S/);
-				a = a.replace(
+				a = escapeSpecialChars(a).replace(
 					regex,
 					(match, m1, m2) =>
 						`${"\t".repeat(leadingSpaces + 1)}\\item${m2}`

@@ -110,6 +110,14 @@ describe("md2tex", () => {
 		`)
 		).toMatchSnapshot();
 	});
+	it("escape chars in lists", () => {
+		expect(
+			convert(dd`
+		- first & second
+			- backslash: \\
+		`)
+		).toMatchSnapshot();
+	});
 	it("code blocks", () => {
 		expect(
 			convert(dd`

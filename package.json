@@ -23,9 +23,13 @@
 	},
 	"keywords": [
 		"Markdown",
-		"Latex",
+		"LaTex",
+		"Tex",
 		"Converter",
-		"Thesis"
+		"Thesis",
+		"openHPI",
+		"modernthesis",
+		"Overleaf"
 	],
 	"contributors": [
 		{

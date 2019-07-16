@@ -67,6 +67,11 @@ describe("md2tex", () => {
 			`)
 		).toMatchSnapshot();
 	});
+	it("inline code blocks", () => {
+		expect(
+			convert(dd`hi \`code\` and more \`code\` inline`)
+		).toMatchSnapshot();
+	});
 	it("footnotes", () => {
 		expect(convert(dd`some [footnote](footnote text)`)).toMatchSnapshot();
 	});

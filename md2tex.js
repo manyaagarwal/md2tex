@@ -66,7 +66,7 @@ const mapInlineCodeblocks = line => {
 		const args = Array.from(arguments);
 		return `\\colorbox{gray-light!}{\\texttt{${escapeSpecialChars(args[1])}}}`;
 	};
-	return line.replace(/\`([^\`]*)\`/g, inlineCode);
+	return line.replace(/\`([^\`]*?)\`/g, inlineCode);
 };
 
 const mapTextStyle = line => {

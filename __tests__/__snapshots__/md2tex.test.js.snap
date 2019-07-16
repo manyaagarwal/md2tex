@@ -107,6 +107,11 @@ exports[`md2tex images 1`] = `
 "
 `;
 
+exports[`md2tex inline code blocks 1`] = `
+"hi \\\\colorbox{gray-light!}{\\\\texttt{code}} and more \\\\colorbox{gray-light!}{\\\\texttt{code}} inline
+"
+`;
+
 exports[`md2tex inline styles 1`] = `
 "\\\\textit{italic} normal \\\\textit{italic} \\\\\\\\
 \\\\textbf{bold} normal \\\\textbf{bold}

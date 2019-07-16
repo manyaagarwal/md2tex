@@ -11,7 +11,9 @@ const logger = logLib("log");
 const readFile = filename => {
 	return new Promise((resolve, reject) => {
 		fs.readFile(filename, "utf8", function(err, data) {
-			err ? logger.error(err) : logger.log("The file was read.");
+			if(err){
+				logger.error(err)
+			}
 			return err ? reject(err) : resolve(data);
 		});
 	});
@@ -23,7 +25,9 @@ const writeFile = (filepath, content) => {
 			fs.mkdirSync(path.dirname(filepath), { recursive: true })
 		}
 		fs.writeFile(filepath, content, function(err) {
-			err ? logger.error(err) : logger.log("The file was saved.");
+			if(err){
+				logger.error(err)
+			}
 			return err ? reject(err) : resolve();
 		});
 	});

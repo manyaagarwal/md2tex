@@ -1,3 +1,6 @@
+// Copyright (C) 2019 Adrian Jost
+// This code is licensed under MIT license (see https://tldrlegal.com/license/mit-license for details)
+
 import fs from "fs";
 import path from "path";
 import logLib from "./logger";

@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.com/adrianjost/md2tex.svg?branch=master)](https://travis-ci.com/adrianjost/md2tex)
 [![codecov](https://codecov.io/gh/adrianjost/md2tex/branch/master/graph/badge.svg)](https://codecov.io/gh/adrianjost/md2tex)
-[![npm](https://img.shields.io/npm/dy/@adrianjost/md2tex.svg)](https://www.npmjs.com/package/@adrianjost/md2tex)
+
+[![npm (scoped)](https://img.shields.io/npm/v/@adrianjost/md2tex.svg) ![npm](https://img.shields.io/npm/dy/@adrianjost/md2tex.svg)](https://www.npmjs.com/package/@adrianjost/md2tex)
 [![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@adrianjost/md2tex.svg)](https://bundlephobia.com/result?p=@adrianjost/md2tex)
 
 **Warning:** This Code is a total mess! I am sorry for that. But it has 100% test coverage so whenever someone introduces a new hack to get it working, we can be confident that nothing unexpectedly breaks.
@@ -17,10 +18,10 @@ All features were developed for compatibility with [the modernthesis template](h
 
 ```bash
 # yarn
-npm i -g @adrianjost/md2tex
+yarn global add @adrianjost/md2tex
 
 # or npm
-yarn global add @adrianjost/md2tex
+npm i -g @adrianjost/md2tex
 ```
 
 #### Usage
@@ -40,10 +41,10 @@ If you provide a directory path instead of a file for both paths, all `.md` file
 
 ```bash
 # yarn
-npm i -D @adrianjost/md2tex
+yarn add -D @adrianjost/md2tex
 
 # or npm
-yarn add -D @adrianjost/md2tex
+npm i -D @adrianjost/md2tex
 ```
 
 #### Usage

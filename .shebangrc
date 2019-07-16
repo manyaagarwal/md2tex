@@ -2,7 +2,6 @@
   {
     "interpreter": "node",
     "files": [
-      "./md2tex.js",
       "./md2tex.file.js"
     ]
   }

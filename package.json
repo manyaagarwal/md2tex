@@ -1,6 +1,6 @@
 {
 	"name": "@adrianjost/md2tex",
-	"version": "1.1.4",
+	"version": "1.1.5",
 	"description": "bachelor thesis basic Markdown to Latex converter",
 	"main": "dist/md2tex.js",
 	"bin": {

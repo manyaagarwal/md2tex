@@ -48,6 +48,8 @@ yarn add -D @adrianjost/md2tex
 
 ```js
 import md2tex from "@adrianjost/md2tex";
+// or
+// const { convert: md2tex } = require("@adrianjost/md2tex")
 
 const md = `# Hello World`;
 const tex = md2tex(md);

@@ -63,7 +63,7 @@ if(fs.statSync(inPath).isDirectory()){
 	}
 	const fileList = readFilelist(inPath).filter(relPath => /\.md$/i.test(relPath));
 	fileList.forEach((relPath, index) => {
-		logger.log(`${index}/${fileList} - ${relPath}`)
+		logger.log(`${index}/${fileList.length} - ${relPath}`)
 		convertFile(path.join(inPath, relPath), path.join(outPath, relPath).replace(".md", ".tex"));
 	})
 }else{

@@ -3,7 +3,7 @@ import path from "path";
 import logLib from "./logger";
 import convert from "./md2tex";
 
-const logger = logLib();
+const logger = logLib("log");
 
 const readFile = filename => {
 	return new Promise((resolve, reject) => {
@@ -41,31 +41,32 @@ return filelist;
 }
 
 export const convertFile = async (filenameIn, filenameOut) => {
-	filenameIn;
-	const content = await readFile(filenameIn || "./in.md");
-	const output = convert(content);
-	writeFile(filenameOut || "./out.tex", output);
+	try{
+		const content = await readFile(filenameIn || "./in.md");
+		const output = convert(content);
+		writeFile(filenameOut || "./out.tex", output);
+	}catch(error){
+		logger.error(error);
+	}
 };
 
 const inPath = process.argv[2] || "./in.md"
 const outPath = process.argv[3] || "./out.md"
 
-console.log(`Convert from "${inPath}" to "${outPath}"\n...`);
+logger.log(`Convert File(s) from "${inPath}" to "${outPath}"\n...`);
 if(fs.statSync(inPath).isDirectory()){
 	if(fs.existsSync(outPath) && !fs.statSync(outPath).isDirectory()){
-		logger.error("Output Path is not a directory")
+		logger.error("!!! Output Path is not a directory")
 	}
-	readFilelist(inPath).forEach((relPath) => {
-		if(!/\.md$/i.test(relPath)){
-			// skip non md files
-			return;
-		}
+	const fileList = readFilelist(inPath).filter(relPath => /\.md$/i.test(relPath));
+	fileList.forEach((relPath, index) => {
+		logger.log(`${index}/${fileList} - ${relPath}`)
 		convertFile(path.join(inPath, relPath), path.join(outPath, relPath).replace(".md", ".tex"));
 	})
 }else{
 	if(fs.existsSync(outPath) && fs.statSync(outPath).isDirectory()){
-		logger.error("Output Path is not a file")
+		logger.error("!!! Output Path is not a file")
 	}
 	convertFile(inPath, outPath);
 }
-console.log(`Conversion finished :D`);
+logger.log('DONE - All files converted');

@@ -5,7 +5,6 @@
 // Copyright (C) 2019 Adrian Jost
 // This code is licensed under MIT license (see https://tldrlegal.com/license/mit-license for details)
 
-import dd from "dedent-tabs";
 import logLib from "./logger";
 
 let logger = logLib();

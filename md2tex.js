@@ -51,7 +51,6 @@ const mapCodeblocks = (line, index) => {
 	}
 	if (line.trim() === "```") {
 		return `	\\end{minted}
-	\\caption{Code Snipped ${index}}
 	\\label{lst:code-snipped-${index}}
 \\end{listing}`;
 	}

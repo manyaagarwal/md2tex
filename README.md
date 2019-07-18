@@ -165,8 +165,7 @@ console.log("Hi");
 	\begin{minted}{js}
 console.log("Hi");
 	\end{minted}
-	\caption{Code Snipped undefined}
-	\label{lst:code-snipped-undefined}
+	\label{lst:code-snipped-1}
 \end{listing}
 ```
 

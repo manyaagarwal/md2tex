@@ -6,9 +6,12 @@ import logLib from "./logger";
 let logger = logLib();
 
 const escapeSpecialChars = text => {
-	text = text.replace(/([\\])/g, "\\textbackslash ");
-	text = text.replace(/([\~])/g, "\\textasciitilde ");
-	text = text.replace(/([\^])/g, "\\textasciicircum ");
+	const replaceOnce = (target) => (match, p1, offset, src) => {
+		return (src.indexOf(target, offset) === 0) ? match : target;
+	}
+	text = text.replace(/([\\])/g, replaceOnce("\\textbackslash "));
+	text = text.replace(/([\~])/g, replaceOnce("\\textasciitilde "));
+	text = text.replace(/([\^])/g, replaceOnce("\\textasciicircum "));
 	const prefix = char => `\\${char}`;
 	text = text.replace(/([\&\%\$\#\_\{\}])/g, prefix);
 	return text;
@@ -61,12 +64,17 @@ const mapCodeblocks = (line, index) => {
 	\\begin{minted}{${language}}`;
 };
 
-const mapInlineCodeblocks = line => {
-	const inlineCode = function() {
+const mapImages = line => {
+	const replaceImage = function(match) {
 		const args = Array.from(arguments);
-		return `\\colorbox{gray-light!}{\\texttt{${escapeSpecialChars(args[1])}}}`;
+		return `\n\\begin{figure}[H]
+	\\centering
+	\\includegraphics[width=\\textwidth]{${args[2]}}
+	\\caption[${removeSpecialChars(args[1])}]{${removeSpecialChars(args[1])}}
+	\\label{fig:${removeSpecialChars(args[1])}}
+\\end{figure}\n`;
 	};
-	return line.replace(/\`([^\`]*?)\`/g, inlineCode);
+	return line.replace(/\!\[([^\]]*)\]\(([^\)]+)\)/g, replaceImage);
 };
 
 const mapTextStyle = line => {
@@ -79,7 +87,7 @@ const mapTextStyle = line => {
 					return;
 				}
 				// unescape
-				const unescaped = a.replace(/\\([\*\_\\])/g, "$1");
+				const unescaped = escapeSpecialChars(a.replace(/\\([\*\_\\])/g, "$1"));
 				out = out.replace(`$${i}`, unescaped);
 			});
 			return out;
@@ -104,22 +112,17 @@ const mapTextStyle = line => {
 			replaceWithUnescapedMatch("\\textit{$2}")
 		);
 	// 4. unescape all text inside links
-			line = line.replace(/(?<=[^\!]\[.*\]\(.*)\\([\_\*])(?=.*\))/g, "$1")
+	line = line.replace(/(?<=[^\!]\[.*\]\(.*)\\([\_\*])(?=.*\))/g, "$1")
 
 	return line;
 };
 
-const mapImages = line => {
-	const replaceImage = function(match) {
+const mapInlineCodeblocks = line => {
+	const inlineCode = function() {
 		const args = Array.from(arguments);
-		return `\n\\begin{figure}[H]
-	\\centering
-	\\includegraphics[width=\\textwidth]{${args[2]}}
-	\\caption[${removeSpecialChars(args[1])}]{${removeSpecialChars(args[1])}}
-	\\label{fig:${removeSpecialChars(args[1])}}
-\\end{figure}\n`;
+		return `\\colorbox{gray-light!}{\\texttt{${escapeSpecialChars(args[1])}}}`;
 	};
-	return line.replace(/\!\[([^\]]*)\]\(([^\)]+)\)/g, replaceImage);
+	return line.replace(/\`([^\`]*?)\`/g, inlineCode);
 };
 
 const mapFootnotes = line => {
@@ -167,7 +170,7 @@ export const convert = (content, { loglevel = "warn" } = {}) => {
 			if (a.startsWith("```")) {
 				inCodeBlock = !inCodeBlock;
 			}
-			a = mapCodeblocks(a);
+			a = mapCodeblocks(a, i);
 			if (inCodeBlock) {
 				return a;
 			}

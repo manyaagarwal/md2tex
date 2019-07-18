@@ -119,8 +119,8 @@ exports[`md2tex inline styles 1`] = `
 `;
 
 exports[`md2tex inline styles with escaped charachters 1`] = `
-"\\\\textit{italic} & \\\\textit{italic \\\\ backslash} \\\\\\\\
-\\\\textbf{bold} {} \\\\textbf{bolder $ money}.
+"\\\\textit{italic} & \\\\textit{italic \\\\textbackslash  backslash} \\\\\\\\
+\\\\textbf{bold} {} \\\\textbf{bolder \\\\$ money}.
 "
 `;
 

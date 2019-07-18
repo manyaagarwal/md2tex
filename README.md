@@ -205,6 +205,7 @@ console.log("Hi");
 
 - Currently, this code can't convert tables
 - It is also not possible to use inline styles in headlines like `# _italic_ headline`
+- Not all characters get escaped correctly. It's not working inside headlines and normal text without any formatting.
 
 ## Contribute
 

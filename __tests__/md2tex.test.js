@@ -134,6 +134,16 @@ describe("md2tex", () => {
 		`)
 		).toMatchSnapshot();
 	});
+	it("code block with captions", () => {
+		expect(
+			convert(dd`
+			some text before
+			\`\`\`js [JS Hello World]
+			console.log("Hi");
+			\`\`\`
+		`)
+		).toMatchSnapshot();
+	});
 	it("raw latex blocks", () => {
 		expect(
 			convert(dd`

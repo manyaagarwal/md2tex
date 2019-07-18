@@ -6,9 +6,9 @@ import logLib from "./logger";
 let logger = logLib();
 
 const escapeSpecialChars = text => {
-	const replaceOnce = (target) => (match, p1, offset, src) => {
-		return (src.indexOf(target, offset) === 0) ? match : target;
-	}
+	const replaceOnce = target => (match, p1, offset, src) => {
+		return src.indexOf(target, offset) === 0 ? match : target;
+	};
 	text = text.replace(/([\\])/g, replaceOnce("\\textbackslash "));
 	text = text.replace(/([\~])/g, replaceOnce("\\textasciitilde "));
 	text = text.replace(/([\^])/g, replaceOnce("\\textasciicircum "));
@@ -49,18 +49,25 @@ const mapCodeblocks = (line, index) => {
 	if (!line.startsWith("```")) {
 		return line;
 	}
+
 	if (line.trim() === "```") {
 		return `	\\end{minted}
-	\\caption{ }
-	\\label{lst:code-snipped-${index}}
 \\end{listing}`;
 	}
-	const language = line
-		.slice(3)
-		.trim()
-		.toLowerCase();
+	const meta = line.slice(3).trim();
+
+	const languageRegex = /^([^\[]*)(?!\[)/;
+	const captionRegex = /\[(.*)\]/;
+	const language = (languageRegex.exec(meta) || [])[1];
+	const caption = (captionRegex.exec(line) || [])[1];
 
 	return `\\begin{listing}[H]
+	\\caption{${caption ? escapeSpecialChars(caption) : " "}}
+	\\label{lst:${
+		caption
+			? removeSpecialChars(caption).replace(/\s/g, "-")
+			: `code-snipped-${index}`
+	}}
 	\\begin{minted}{${language}}`;
 };
 
@@ -112,7 +119,7 @@ const mapTextStyle = line => {
 			replaceWithUnescapedMatch("\\textit{$2}")
 		);
 	// 4. unescape all text inside links
-	line = line.replace(/(?<=[^\!]\[.*\]\(.*)\\([\_\*])(?=.*\))/g, "$1")
+	line = line.replace(/(?<=[^\!]\[.*\]\(.*)\\([\_\*])(?=.*\))/g, "$1");
 
 	return line;
 };
@@ -126,10 +133,12 @@ const mapInlineCodeblocks = line => {
 };
 
 const mapFootnotes = line => {
-	const footnote = function(){
+	const footnote = function() {
 		const args = Array.from(arguments);
-		return `${escapeSpecialChars(args[1])}\\footnote{${escapeSpecialChars(args[2])}}`
-	}
+		return `${escapeSpecialChars(args[1])}\\footnote{${escapeSpecialChars(
+			args[2]
+		)}}`;
+	};
 	return line.replace(/(?<!\!)\[([^\]]*)\]\(([^\)]+)\)/g, footnote);
 };
 
@@ -152,82 +161,88 @@ export const convert = (content, { loglevel = "warn" } = {}) => {
 	];
 	let lines = content
 		.split("\n")
-		.map(a => a.trimRight().replace(/(\r\n|\n|\r)$/gm, ""))
-	lines = lines
-		.map((a, i) => {
-			// latex block
-			if (a.toLowerCase().startsWith("```latex")) {
-				inRawLatexBlock = true;
-				return "";
-			} else if (inRawLatexBlock && a.startsWith("```")) {
-				inRawLatexBlock = false;
-				return "";
-			} else if (inRawLatexBlock) {
-				return a;
-			}
-
-			// code block styles
-			if (a.startsWith("```")) {
-				inCodeBlock = !inCodeBlock;
-			}
-			a = mapCodeblocks(a, i);
-			if (inCodeBlock) {
-				return a;
-			}
-
-			if (a.startsWith("#")) {
-				return mapHeadlines(a, i);
-			}
-			// text styles
-			a = mapInlineTextStyles(a, i);
-			a = mapImages(a);
-
-			// Lists
-			const activeEnum = enums.find(([regex]) => {
-				return a.match(regex);
-			});
-
-			if (activeEnum) {
-				const [regex, type] = activeEnum;
-
-				const leadingSpaces = a.search(/\S/);
-				a = escapeSpecialChars(a).replace(
-					regex,
-					(match, m1, m2) =>
-						`${"\t".repeat(leadingSpaces + 1)}\\item${m2}`
-				);
-
-				// more indentation than before
-				if (leadingSpaces + 1 > openEnums.length) {
-					a = `${"\t".repeat(leadingSpaces)}\\begin{${type}}\n${a}`;
-					openEnums.push(type);
-					// less indentation than before
-				} else if (leadingSpaces < openEnums.length) {
-					const diff = openEnums.length - leadingSpaces - 1;
-					let closingTags = [];
-					for (let index = 0; index < diff; index++) {
-						const endtype = openEnums.pop();
-						closingTags.push(`${"\t".repeat(diff - index)}\\end{${endtype}}`);
-					}
-					a = `${closingTags.join("\n")}\n${a}`;
-				}
-			} else if (openEnums.length) {
-				a = `${openEnums
-					.map(
-						(type, index) =>
-							`${"\t".repeat(openEnums.length - index - 1)}\\end{${type}}`
-					)
-					.join("\n")}\n${a} ${(lines[Math.min(i + 1, lines.length - 1)].replace(/\s/g, "").length && a.replace(/\s/g, "").length) ? "\\\\" : ""}`;
-				openEnums = [];
-			}else if(lines[Math.min(i + 1, lines.length - 1)].replace(/\s/g, "").length && a.replace(/\s/g, "").length ){
-				a = `${a} ${"\\\\"}`;
-			}
-
-			// Return Result
+		.map(a => a.trimRight().replace(/(\r\n|\n|\r)$/gm, ""));
+	lines = lines.map((a, i) => {
+		// latex block
+		if (a.toLowerCase().startsWith("```latex")) {
+			inRawLatexBlock = true;
+			return "";
+		} else if (inRawLatexBlock && a.startsWith("```")) {
+			inRawLatexBlock = false;
+			return "";
+		} else if (inRawLatexBlock) {
 			return a;
+		}
+
+		// code block styles
+		if (a.startsWith("```")) {
+			inCodeBlock = !inCodeBlock;
+		}
+		a = mapCodeblocks(a, i);
+		if (inCodeBlock) {
+			return a;
+		}
+
+		if (a.startsWith("#")) {
+			return mapHeadlines(a, i);
+		}
+		// text styles
+		a = mapInlineTextStyles(a, i);
+		a = mapImages(a);
+
+		// Lists
+		const activeEnum = enums.find(([regex]) => {
+			return a.match(regex);
 		});
+
+		if (activeEnum) {
+			const [regex, type] = activeEnum;
+
+			const leadingSpaces = a.search(/\S/);
+			a = escapeSpecialChars(a).replace(
+				regex,
+				(match, m1, m2) => `${"\t".repeat(leadingSpaces + 1)}\\item${m2}`
+			);
+
+			// more indentation than before
+			if (leadingSpaces + 1 > openEnums.length) {
+				a = `${"\t".repeat(leadingSpaces)}\\begin{${type}}\n${a}`;
+				openEnums.push(type);
+				// less indentation than before
+			} else if (leadingSpaces < openEnums.length) {
+				const diff = openEnums.length - leadingSpaces - 1;
+				let closingTags = [];
+				for (let index = 0; index < diff; index++) {
+					const endtype = openEnums.pop();
+					closingTags.push(`${"\t".repeat(diff - index)}\\end{${endtype}}`);
+				}
+				a = `${closingTags.join("\n")}\n${a}`;
+			}
+		} else if (openEnums.length) {
+			a = `${openEnums
+				.map(
+					(type, index) =>
+						`${"\t".repeat(openEnums.length - index - 1)}\\end{${type}}`
+				)
+				.join("\n")}\n${a} ${
+				lines[Math.min(i + 1, lines.length - 1)].replace(/\s/g, "").length &&
+				a.replace(/\s/g, "").length
+					? "\\\\"
+					: ""
+			}`;
+			openEnums = [];
+		} else if (
+			lines[Math.min(i + 1, lines.length - 1)].replace(/\s/g, "").length &&
+			a.replace(/\s/g, "").length
+		) {
+			a = `${a} ${"\\\\"}`;
+		}
+
+		// Return Result
+		return a;
+	});
 	const output = lines.slice(0, -1).join("\n");
-	logger.log("---\n"+output+"\n---");
+	logger.log("---\n" + output + "\n---");
 	return output;
 };
 

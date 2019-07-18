@@ -150,12 +150,14 @@ description\\footnote{footnote}
 
 ### Codeblocks
 
+🌟 Please note the special syntax for captions.
+
 **Input:**
 
 ````md
-```js
+```js [some caption]
 console.log("Hi");
-```
+```[description]
 ````
 
 **Output:**
@@ -165,7 +167,7 @@ console.log("Hi");
 	\begin{minted}{js}
 console.log("Hi");
 	\end{minted}
-	\caption{ }
+	\caption{some caption}
 	\label{lst:code-snipped-undefined}
 \end{listing}
 ```

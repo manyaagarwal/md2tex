@@ -8,14 +8,26 @@ Please, let me go into a new textblock :help:
 "
 `;
 
-exports[`md2tex code blocks 1`] = `
+exports[`md2tex code block with captions 1`] = `
 "some text before \\\\\\\\
 \\\\begin{listing}[H]
+	\\\\caption{JS Hello World}
+	\\\\label{lst:JS-Hello-World}
 	\\\\begin{minted}{js}
 console.log(\\"Hi\\");
 	\\\\end{minted}
+\\\\end{listing}
+"
+`;
+
+exports[`md2tex code blocks 1`] = `
+"some text before \\\\\\\\
+\\\\begin{listing}[H]
 	\\\\caption{ }
-	\\\\label{lst:code-snipped-3}
+	\\\\label{lst:code-snipped-1}
+	\\\\begin{minted}{js}
+console.log(\\"Hi\\");
+	\\\\end{minted}
 \\\\end{listing} \\\\\\\\
 and some behind
 "

@@ -58,7 +58,7 @@ export const convertFile = async (filenameIn, filenameOut) => {
 };
 
 const inPath = process.argv[2] || "./in.md"
-const outPath = process.argv[3] || "./out.md"
+const outPath = process.argv[3] || "./out.tex"
 
 logger.log(`Convert File(s) from "${inPath}" to "${outPath}"\n...`);
 if(fs.statSync(inPath).isDirectory()){
@@ -67,7 +67,7 @@ if(fs.statSync(inPath).isDirectory()){
 	}
 	const fileList = readFilelist(inPath).filter(relPath => /\.md$/i.test(relPath));
 	fileList.forEach((relPath, index) => {
-		logger.log(`${index}/${fileList.length} - ${relPath}`)
+		logger.log(`${index + 1}/${fileList.length} - ${relPath}`)
 		convertFile(path.join(inPath, relPath), path.join(outPath, relPath).replace(".md", ".tex"));
 	})
 }else{

@@ -130,7 +130,7 @@ Links get converted to footnotes or BibLatex Source References
 ```tex
 description\\footnote{footnote}
 
-description\\cite{reference}
+source\\cite{reference}
 ```
 
 ### Images

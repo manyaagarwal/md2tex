@@ -135,17 +135,23 @@ const mapInlineCodeblocks = line => {
 const mapFootnotes = line => {
 	const footnote = function() {
 		const args = Array.from(arguments);
-		return `${escapeSpecialChars(args[1])}\\footnote{${escapeSpecialChars(
-			args[2]
-		)}}`;
+		return (args[2].match(/^\`.*\`$/))
+			// Source
+			? `${escapeSpecialChars(args[1])}\\cite{${
+					args[2].match(/^\`(.*)\`$/)[1]
+				}}`
+			// Footnote
+			: `${escapeSpecialChars(args[1])}\\footnote{${escapeSpecialChars(
+					args[2]
+				)}}`;
 	};
 	return line.replace(/(?<!\!)\[([^\]]*)\]\(([^\)]+)\)/g, footnote);
 };
 
 const mapInlineTextStyles = (line, index) => {
 	line = mapTextStyle(line);
-	line = mapInlineCodeblocks(line, index);
 	line = mapFootnotes(line);
+	line = mapInlineCodeblocks(line, index);
 	return line;
 };
 

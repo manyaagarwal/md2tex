@@ -72,9 +72,23 @@ describe("md2tex", () => {
 			convert(dd`hi \`code\` and more \`code\` inline`)
 		).toMatchSnapshot();
 	});
+	it("biblatex source", () => {
+		expect(convert(dd`some [source](\`BibRefName\`)`)).toMatchSnapshot();
+	});
 	it("footnotes", () => {
 		expect(convert(dd`some [footnote](footnote text)`)).toMatchSnapshot();
 	});
+	it("footnotes with inline code", () => {
+		expect(convert(dd`some [footnote](footnote \`code\` and more)`)).toMatchSnapshot();
+	});
+	it("escape special chars in footnotes", () => {
+		expect(
+			convert(dd`
+			I have [the special char # in my footnote](https://vuejs.org/v2/guide/components-slots.html#Scoped-Slots)
+		`)
+		).toMatchSnapshot();
+	});
+
 	it("images", () => {
 		expect(convert(dd`some ![image](url)`)).toMatchSnapshot();
 	});
@@ -169,13 +183,6 @@ describe("md2tex", () => {
 			but I also wan't to be on a seperate line
 
 			Please, let me go into a new textblock :help:
-		`)
-		).toMatchSnapshot();
-	});
-	it("escape special chars in footnotes", () => {
-		expect(
-			convert(dd`
-			I have [the special char # in my footnote](https://vuejs.org/v2/guide/components-slots.html#Scoped-Slots)
 		`)
 		).toMatchSnapshot();
 	});

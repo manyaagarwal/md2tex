@@ -8,6 +8,11 @@ Please, let me go into a new textblock :help:
 "
 `;
 
+exports[`md2tex biblatex source 1`] = `
+"some source\\\\cite{BibRefName}
+"
+`;
+
 exports[`md2tex code block with captions 1`] = `
 "some text before \\\\\\\\
 \\\\begin{listing}[H]
@@ -50,6 +55,11 @@ exports[`md2tex escape special chars in footnotes 1`] = `
 
 exports[`md2tex footnotes 1`] = `
 "some footnote\\\\footnote{footnote text}
+"
+`;
+
+exports[`md2tex footnotes with inline code 1`] = `
+"some footnote\\\\footnote{footnote \\\\colorbox{gray-light!}{\\\\texttt{code}} and more}
 "
 `;
 

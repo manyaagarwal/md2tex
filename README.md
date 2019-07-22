@@ -115,18 +115,22 @@ _italic_ or _italic_
 
 ### Links
 
-Links get converted to footnotes
+Links get converted to footnotes or BibLatex Source References
 
 **Input:**
 
 ```md
 [descrition](footnote)
+
+[source](`reference`)
 ```
 
 **Output:**
 
 ```tex
 description\\footnote{footnote}
+
+description\\cite{reference}
 ```
 
 ### Images

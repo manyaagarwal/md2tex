@@ -161,18 +161,18 @@ source\\cite{reference}
 ````md
 ```js [some caption]
 console.log("Hi");
-```[description]
+```
 ````
 
 **Output:**
 
 ```tex
 \begin{listing}[H]
+	\caption{some caption}
+	\label{lst:some caption}
 	\begin{minted}{js}
 console.log("Hi");
 	\end{minted}
-	\caption{some caption}
-	\label{lst:code-snipped-undefined}
 \end{listing}
 ```
 

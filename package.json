@@ -1,7 +1,7 @@
 {
 	"name": "@adrianjost/md2tex",
 	"version": "1.3.0",
-	"description": "bachelor thesis basic Markdown to Latex converter",
+	"description": "bachelor thesis basic markdown to latex converter",
 	"main": "dist/md2tex.js",
 	"bin": {
 		"md2tex": "dist/md2tex.file.js"
@@ -39,6 +39,11 @@
 		}
 	],
 	"license": "MIT",
+	"repository": "github:adrianjost/md2tex",
+	"homepage": "https://github.com/adrianjost/md2tex",
+	"bugs": {
+		"url": "https://github.com/adrianjost/md2tex/issues"
+	},
 	"jest": {
 		"coverageDirectory": "./coverage/",
 		"collectCoverage": true

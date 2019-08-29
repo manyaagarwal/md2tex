@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/adrianjost/md2tex/branch/master/graph/badge.svg)](https://codecov.io/gh/adrianjost/md2tex)
 
 [![npm (scoped)](https://img.shields.io/npm/v/@adrianjost/md2tex.svg) ![npm](https://img.shields.io/npm/dy/@adrianjost/md2tex.svg)](https://www.npmjs.com/package/@adrianjost/md2tex)
-[![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@adrianjost/md2tex.svg)](https://bundlephobia.com/result?p=@adrianjost/md2tex)
+[![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@adrianjost/md2tex.svg)](https://bundlephobia.com/result?p=@adrianjost/md2tex) [![Greenkeeper badge](https://badges.greenkeeper.io/adrianjost/md2tex.svg)](https://greenkeeper.io/)
 
 **Warning:** This Code is a total mess! I am sorry for that. But it has 100% test coverage so whenever someone introduces a new hack to get it working, we can be confident that nothing unexpectedly breaks.
 

@@ -3,10 +3,9 @@ branches:
   only:
     - master
 node_js:
-  - "8"
   - "10"
+  - "12"
   - "lts/*"
-  - "node"
 install:
   - yarn install --production=false
   - yarn global add codecov

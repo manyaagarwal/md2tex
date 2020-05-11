@@ -2895,10 +2895,10 @@ escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-escape-string-regexp@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz#a30304e99daa32e23b2fd20f51babd07cffca344"
-  integrity sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
+escape-string-regexp@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz#14ba83a5d373e3d311e5afca29cf5bfad965bf34"
+  integrity sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==
 
 escodegen@^1.11.1, escodegen@^1.8.1:
   version "1.11.1"
@@ -5463,7 +5463,7 @@ pako@~1.0.5:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.10.tgz#4328badb5086a426aa90f541977d4955da5c9732"
   integrity sha512-0DTvPVU3ed8+HNXOu5Bs+o//Mbdj9VNQMUOe9oKCwh8l0GNwpTDMKCWbRjgtD291AWnkAgkqA/LOnQS8AmS1tw==
 
-parcel-bundler@^1.12.3, parcel-bundler@^1.12.4:
+parcel-bundler@^1.12.4:
   version "1.12.4"
   resolved "https://registry.yarnpkg.com/parcel-bundler/-/parcel-bundler-1.12.4.tgz#31223f4ab4d00323a109fce28d5e46775409a9ee"
   integrity sha512-G+iZGGiPEXcRzw0fiRxWYCKxdt/F7l9a0xkiU4XbcVRJCSlBnioWEwJMutOCCpoQmaQtjB4RBHDGIHN85AIhLQ==
@@ -5528,14 +5528,14 @@ parcel-bundler@^1.12.3, parcel-bundler@^1.12.4:
     v8-compile-cache "^2.0.0"
     ws "^5.1.1"
 
-parcel-plugin-shebang@^1.2.8:
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/parcel-plugin-shebang/-/parcel-plugin-shebang-1.2.8.tgz#74044b6ddf850715ec7f18a2098c9c36926e3fd3"
-  integrity sha512-ZTbUZ33EH03yeNxEi85LO3iLr9svs7q8ZLyqErMvIhMxjll6F07dKWuZMNwldHivf9mIbB+/ls3QdWZyFGpWmA==
+parcel-plugin-shebang@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/parcel-plugin-shebang/-/parcel-plugin-shebang-1.2.9.tgz#060dc3b4cf74179d25ea18b826c41f2c62c77899"
+  integrity sha512-wsAtcz4aoy0JDvDfuMHCe/AFireoiVJ1yZA4Rx6egnVLzjuuUj+m/TLQcOY7vcLYALT8LlKSB25f2sZrCM0H5Q==
   dependencies:
-    escape-string-regexp "^2.0.0"
-    parcel-bundler "^1.12.3"
-    yn "^3.1.1"
+    escape-string-regexp "^4.0.0"
+    parcel-bundler "^1.12.4"
+    yn "^4.0.0"
 
 parse-asn1@^5.0.0:
   version "5.1.4"
@@ -7833,7 +7833,7 @@ yargs@^15.3.1:
     y18n "^4.0.0"
     yargs-parser "^18.1.1"
 
-yn@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/yn/-/yn-3.1.1.tgz#1e87401a09d767c1d5eab26a6e4c185182d2eb50"
-  integrity sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
+yn@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/yn/-/yn-4.0.0.tgz#611480051ea43b510da1dfdbe177ed159f00a979"
+  integrity sha512-huWiiCS4TxKc4SfgmTwW1K7JmXPPAmuXWYy4j9qjQo4+27Kni8mGhAAi1cloRWmBe2EqcLgt3IGqQoRL/MtPgg==

@@ -7,12 +7,11 @@ node_js:
   - "12"
   - "lts/*"
 install:
-  - yarn install --production=false
-  - yarn global add codecov
+  - npm ci
 script:
-  - yarn test
-  - codecov
-  - yarn build
+  - npm run test
+  - npx codecov
+  - npm run build
 deploy:
   provider: npm
   email: $NPM_EMAIL
@@ -20,4 +19,4 @@ deploy:
   skip_cleanup: true
 notifications:
   email: false
-cache: yarn
+cache: npm

@@ -16,7 +16,7 @@
 		"convert": "parcel watch ./md2tex.file.js",
 		"test": "jest",
 		"test:update": "jest -u",
-		"test:watch": "yarn test --watchAll",
+		"test:watch": "npm run test -- --watchAll",
 		"build:converter": "parcel build md2tex.js --target node",
 		"build:fileConverter": "parcel build md2tex.file.js --target node",
 		"build": "run-p build:*"

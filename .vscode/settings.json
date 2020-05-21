@@ -34,5 +34,8 @@
 	// ===
 	// EDITOR SETTINGS
 	// ===
-	"editor.suggest.localityBonus": true
+	"editor.suggest.localityBonus": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	}
 }

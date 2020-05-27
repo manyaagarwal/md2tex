@@ -50,7 +50,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.10.1",
-		"@babel/preset-env": "^7.10.0",
+		"@babel/preset-env": "^7.10.1",
 		"babel-jest": "^26.0.1",
 		"dedent-tabs": "^0.8.0",
 		"jest": "^26.0.1",

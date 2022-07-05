@@ -12,6 +12,8 @@
 
 **Warning:** This Code is a total mess! I am sorry for that. But it has 100% test coverage so whenever someone introduces a new hack to get it working, we can be confident that nothing unexpectedly breaks.
 
+**This is a fork of @adrianjost/md2tex to allow images from remote urls to be fetched as well. Make sure to enable write18 and import the necessary latex packages (graphicx, float)**
+
 All features were developed for compatibility with [the modernthesis template](https://github.com/openHPI/modernthesis).
 
 ## How to use it
@@ -22,10 +24,10 @@ All features were developed for compatibility with [the modernthesis template](h
 
 ```bash
 # yarn
-yarn global add @adrianjost/md2tex
+yarn global add @manyaagarwal/md2tex
 
 # or npm
-npm i -g @adrianjost/md2tex
+npm i -g @manyaagarwal/md2tex
 ```
 
 #### Usage
@@ -45,16 +47,16 @@ If you provide a directory path instead of a file for both paths, all `.md` file
 
 ```bash
 # yarn
-yarn add -D @adrianjost/md2tex
+yarn add -D @manyaagarwal/md2tex
 
 # or npm
-npm i -D @adrianjost/md2tex
+npm i -D @manyaagarwal/md2tex
 ```
 
 #### Usage
 
 ```js
-import md2tex from "@adrianjost/md2tex";
+import md2tex from "@manyaagarwal/md2tex";
 // or
 // const { convert: md2tex } = require("@adrianjost/md2tex")
 
@@ -148,12 +150,16 @@ source\\cite{reference}
 **Output:**
 
 ```tex
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{path}
-	\caption[description]{description}
-	\label{fig:description}
-\end{figure}
+\\immediate\\write18{wget path
+		\\IfFileExists{filename}
+		{
+			\\begin{figure}[H]
+			\\centering
+			\\includegraphics[width=\\textwidth]{filename}
+			\\caption[filename]
+			\\label{fig:filename}
+			\\end{figure}
+		}{}
 ```
 
 ### Codeblocks

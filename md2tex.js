@@ -74,12 +74,19 @@ const mapCodeblocks = (line, index) => {
 const mapImages = line => {
 	const replaceImage = function(match) {
 		const args = Array.from(arguments);
-		return `\n\\begin{figure}[H]
-	\\centering
-	\\includegraphics[width=\\textwidth]{${args[2]}}
-	\\caption[${removeSpecialChars(args[1])}]{${removeSpecialChars(args[1])}}
-	\\label{fig:${removeSpecialChars(args[1])}}
-\\end{figure}\n`;
+		const filename = args[2].split('/')[-1]
+		return `
+		\\immediate\\write18{wget ${args[2]}}
+		\\IfFileExists{${`${filename}`.replaceAll('_','\\_')}}
+		{
+			\\begin{figure}[H]
+			\\centering
+			\\includegraphics[width=\\textwidth]{${filename}}
+			\\caption[${removeSpecialChars(args[1])}]{${removeSpecialChars(args[1])}}
+			\\label{fig:${removeSpecialChars(args[1])}}
+			\\end{figure}
+		}{}
+		`;
 	};
 	return line.replace(/\!\[([^\]]*)\]\(([^\)]+)\)/g, replaceImage);
 };
